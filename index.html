@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DPD Desk">
+  <meta name="theme-color" content="#000000">
+  <title>DPD Desk</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main class="screen">
+    <header>
+      <p class="eyebrow">PAPER</p>
+      <h1>DPD Desk</h1>
+    </header>
+    <p class="status" id="status">Connecting…</p>
+    <canvas id="chart" width="320" height="120" aria-hidden="true"></canvas>
+    <p class="hint">Add this page to your iPhone home screen for the full-screen app. The trading UI is built in a later step.</p>
+  </main>
+  <script src="chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

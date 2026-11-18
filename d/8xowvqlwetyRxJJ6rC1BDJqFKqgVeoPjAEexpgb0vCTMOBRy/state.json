@@ -1,0 +1,1 @@
+{"ok": true, "ts": "2026-11-18T12:06:35.856647+02:00", "mode": "PAPER", "balance": 200.0, "today_pct": 0, "multiplier": 1, "agents": {"scanner": {"status": "stub"}, "auditor": {"status": "stub"}, "analyst": {"status": "stub"}, "executor": {"status": "stub"}, "risk": {"status": "stub"}}}
