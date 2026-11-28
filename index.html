@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Grok Bot">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="referrer" content="no-referrer">
+  <title>Grok Bot</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="app.css?v=14">
+</head>
+<body>
+<div id="app">
+
+  <section id="home" class="screen on is-loading">
+    <div class="nav">
+      <button class="iconbtn" id="avatarBtn" aria-label="Account"><span class="avatar" id="avatar">·</span></button>
+      <button class="title" id="titleBtn">Grok Bot<span>›</span></button>
+      <button class="iconbtn" id="searchBtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      <button class="iconbtn" id="bellBtn" aria-label="Activity"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 1 1 12 0c0 6 2 7 2 7H4s2-1 2-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><i class="dot" id="bellDot" hidden></i></button>
+    </div>
+    <div class="errrow" data-err></div>
+
+    <div class="loading-only">
+      <div class="sk" style="height:72px;width:70%;margin-top:10px"></div>
+      <div class="sk" style="height:20px;width:45%;margin-top:14px"></div>
+      <div class="sk" style="height:200px;margin-top:16px"></div>
+      <div class="sk" style="aspect-ratio:16/9;margin-top:16px;border-radius:22px"></div>
+      <div class="sk" style="height:190px;margin-top:22px;border-radius:18px"></div>
+    </div>
+
+    <div class="loaded-only">
+      <div class="balrow"><div class="odo" id="odo" aria-live="polite"></div><span class="pill paper" id="paperPill" hidden>PAPER</span></div>
+      <div class="sub"><span id="today" class="num"></span><span id="todayLbl">today</span><span class="pill mult" id="mult"></span></div>
+      <div class="chartbox"><canvas id="lineChart"></canvas><div class="overlay" id="chartEmpty"></div></div>
+      <div class="ranges" id="ranges"></div>
+
+      <div class="live">
+        <button class="frame" id="frame" aria-label="Open the live screen full screen">
+          <img id="imgA" alt=""><img id="imgB" alt="">
+          <div class="empty" id="frameEmpty"><b>No frame yet</b><span>Plan B has no live screenshots. A frame shows here only while a click run saves one.</span></div>
+          <span class="chip l"><i id="liveDot"></i><span id="liveTxt">No frame yet</span></span>
+          <span class="chip r" id="laneChip">Idle</span>
+        </button>
+        <div class="lastorder"><span class="t" id="lastOrderTxt"></span><span class="checks" id="lastChecks"></span></div>
+      </div>
+
+      <div class="sec"><h2 id="botsTitle">Bots</h2></div>
+      <div class="carousel" id="carousel"></div>
+
+      <div class="sec"><h2>Activity</h2><button class="more" id="seeAll">See all</button></div>
+      <div id="homeAct"></div>
+    </div>
+  </section>
+
+  <section id="bots" class="screen">
+    <div class="nav"><div class="big">Bots</div><span class="pill paper" data-paper hidden>PAPER</span></div>
+    <div class="errrow" data-err></div>
+    <div id="botsBody"></div>
+  </section>
+
+  <section id="activity" class="screen">
+    <div class="nav"><div class="big">Activity</div></div>
+    <div class="errrow" data-err></div>
+    <div id="actBody"></div>
+  </section>
+
+  <section id="account" class="screen">
+    <div class="nav"><div class="big">Account</div><span class="pill paper" data-paper hidden>PAPER</span></div>
+    <div class="errrow" data-err></div>
+    <div id="accBody"></div>
+  </section>
+
+  <section id="audit" class="screen">
+    <div class="nav"><button class="back" data-back>‹ Back</button><div style="flex:1"></div></div>
+    <div class="errrow" data-err></div>
+    <div id="auditBody"></div>
+  </section>
+
+  <section id="coin" class="screen">
+    <div class="nav"><button class="back" data-back>‹ Back</button><div style="flex:1"></div><span class="pill paper" data-paper hidden>PAPER</span></div>
+    <div class="errrow" data-err></div>
+    <div id="coinBody"></div>
+  </section>
+</div>
+
+<div class="full" id="full">
+  <div class="bar"><button id="fullClose">Done</button><a id="fullFomo" target="_blank" rel="noopener" hidden>Open on FOMO</a></div>
+  <div class="stage" id="stage"><img id="fullImg" alt=""></div>
+  <div class="cap" id="fullCap">Pinch to zoom · double tap to reset</div>
+</div>
+
+<div class="search" id="search">
+  <div class="field"><input id="q" type="search" placeholder="Name, symbol or mint" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="linkbtn" id="qClose">Cancel</button></div>
+  <div id="qBody" style="margin-top:14px"></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<div class="tabbar"><nav>
+  <button data-tab="home" class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Home</button>
+  <button data-tab="bots"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01"/></svg>Bots</button>
+  <button data-tab="activity"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Activity</button>
+  <button data-tab="account"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Account</button>
+</nav></div>
+
+<script src="chart.js?v=14"></script>
+<script src="app.js?v=14"></script>
+</body>
+</html>
